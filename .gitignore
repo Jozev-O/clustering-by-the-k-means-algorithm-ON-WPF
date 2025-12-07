@@ -362,5 +362,4 @@ MigrationBackup/
 # Fody - auto-generated XML schema
 FodyWeavers.xsd
 
-
-TEMP FOR TESTS/
+TEMP_FOR_TESTS/
