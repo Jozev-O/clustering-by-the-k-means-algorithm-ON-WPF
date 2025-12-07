@@ -1,0 +1,6 @@
+<Solution>
+  <Project Path="clustering-by-the-k-means-algorithm-ON-WPF/UI.csproj" />
+  <Project Path="Core/Core.csproj" />
+  <Project Path="TEMP FOR TESTS/TEMP FOR TESTS.csproj" />
+  <Project Path="Visualization/Visualization.csproj" />
+</Solution>
