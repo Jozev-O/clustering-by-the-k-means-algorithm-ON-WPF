@@ -1,10 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace Core.Models
+﻿namespace Core.Models
 {
     public class ClusteringOptions
     {
+        public int MinClusters { get; set; } = 2;
+        public int MaxClusters { get; set; }
     }
 }

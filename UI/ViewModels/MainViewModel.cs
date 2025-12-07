@@ -12,7 +12,7 @@ namespace GwasClusteringApp.ViewModels
     {
         private readonly ClusteringService _clusteringService;
         private readonly ILogger<MainViewModel> _logger;
-        private readonly VisualizerBase _visualizer;  // Внедрение визуализатора, если требуется DI
+        private readonly VisualizerBase _visualizer;
 
         [ObservableProperty]
         private ObservableCollection<Cluster> clusters = new ObservableCollection<Cluster>();
@@ -21,7 +21,7 @@ namespace GwasClusteringApp.ViewModels
         private FilterOptions filterOptions = new FilterOptions();
 
         [ObservableProperty]
-        private ClusteringOptions clusteringOptions = new ClusteringOptions();
+        private ClusteringOptions clusteringOptions = new();
 
         [ObservableProperty]
         private string filePath = string.Empty;
@@ -51,7 +51,7 @@ namespace GwasClusteringApp.ViewModels
                 return;
             }
 
-            isProcessing = true;
+            IsProcessing = true;
             try
             {
                 var data = await _clusteringService.LoadAndPrepareDataAsync(FilePath, FilterOptions);
@@ -65,18 +65,18 @@ namespace GwasClusteringApp.ViewModels
             }
             finally
             {
-                isProcessing = false;
+                IsProcessing = false;
             }
         }
 
         [RelayCommand]
         private async Task DetermineOptimalKAsync()
         {
-            isProcessing = true;
+            IsProcessing = true;
             try
             {
                 var data = await _clusteringService.LoadAndPrepareDataAsync(FilePath, FilterOptions);  // Повторная загрузка, если данные не кэшированы
-                //OptimalK = _clusteringService.DetermineOptimalK(data, clusteringOptions.MinK, clusteringOptions.MaxK);
+                OptimalK = _clusteringService.DetermineOptimalK(data, clusteringOptions.MinClusters, clusteringOptions.MaxClusters);
                 _logger.LogInformation($"Оптимальное K: {OptimalK}.");
             }
             catch (Exception ex)
@@ -85,7 +85,7 @@ namespace GwasClusteringApp.ViewModels
             }
             finally
             {
-                isProcessing = false;
+                IsProcessing = false;
             }
         }
 
@@ -98,7 +98,7 @@ namespace GwasClusteringApp.ViewModels
                 return;
             }
 
-            isProcessing = true;
+            IsProcessing = true;
             try
             {
                 var data = await _clusteringService.LoadAndPrepareDataAsync(FilePath, FilterOptions);
@@ -116,7 +116,7 @@ namespace GwasClusteringApp.ViewModels
             }
             finally
             {
-                isProcessing = false;
+                IsProcessing = false;
             }
         }
 
@@ -129,7 +129,7 @@ namespace GwasClusteringApp.ViewModels
                 return;
             }
 
-            isProcessing = true;
+            IsProcessing = true;
             try
             {
                 // Проверка размерности и редукция, если >3D
@@ -152,7 +152,7 @@ namespace GwasClusteringApp.ViewModels
             }
             finally
             {
-                isProcessing = false;
+                IsProcessing = false;
             }
         }
     }
